@@ -12,8 +12,8 @@ export class VkApiWrapper extends AbstractApiWrapper{
 
     protected readonly _baseUrl: string = `https://api.vk.com/method/`;
 
-    private readonly _accessToken: string;
-    private readonly _apiVersion: number;
+    protected readonly _accessToken: string;
+    protected readonly _apiVersion: number;
 
     constructor(params: VkApiWrapperConstructor) {
         super();

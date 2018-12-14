@@ -1,13 +1,24 @@
+export enum EVkApiErrorCodes {
+    USER_AUTHORIZATION_FAILED = 5
+}
+
 export class VkApiCommonException extends Error {
-    public readonly message: any;
+    protected readonly code = EVkApiErrorCodes.USER_AUTHORIZATION_FAILED;
 
     constructor(
-        private readonly response: string | object,
-        private readonly code: any,
-        private readonly data: any,
+        private readonly errorCode: number,
+        private readonly errorMessage: string,
+        private readonly requestParams: object,
         private readonly recommendation?: string
     ) {
-        super();
-        this.message = response;
+        super(errorMessage);
+    }
+
+    get getErrorCode() {
+        return this.errorCode
+    }
+
+    get getErrorMessage() {
+        return this.errorMessage;
     }
 }
