@@ -1,3 +1,5 @@
+import EEventType = Vk.EEventType;
+
 namespace Vk {
     export enum EEventType {
         // TODO: Add more events
@@ -218,13 +220,13 @@ class VkLongPoll {
 }
 
 class VkLongPollServiceBuilder {
-    private readonly _watchingEvents: EVkEventTypes[];
+    private readonly _watchingEvents: EEventType[];
 
     constructor() {
         this._watchingEvents = [];
     }
 
-    watchEvent(event: EVkEventTypes): this {
+    watchEvent(event: EEventType): this {
         if (this._watchingEvents.indexOf(event) === -1) {
             this._watchingEvents.push(event);
         }
@@ -239,6 +241,20 @@ class VkLongPollServiceBuilder {
     }
 }
 
-const lp = new VkLongPollServiceBuilder()
-    .watchEvent(EVkEventTypes.NEW_MESSAGE)
-    .build();
+import * as got from 'got';
+
+const params = {
+    client_id: 1,
+    redirect_uri: '',
+    scope: '',
+    v: 5,
+};
+const url = 'https://oauth.vk.com/authorize';
+https://oauth.vk.com/authorize?client_id=6776587&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=messages&response_type=code&v=5.92
+got(`https://oauth.vk.com/authorize?client_id=6776587&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=messages&response_type=code&v=5.92`, {method: 'GET'})
+    .then((response) => {
+        console.log(
+            `GOT RESPONSE: ${JSON.stringify(response)}`
+        );
+    })
+    .catch((err) => console.log(err));
